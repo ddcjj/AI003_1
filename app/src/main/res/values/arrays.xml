@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="accounts">
+        <item>帳號設定</item>
+        <item>幫助中心</item>
+        <item>登出</item>
+    </string-array>
+
+    <string-array name="settings">
+        <item>通知設定</item>
+        <item>語言選擇</item>
+        <item>關於</item>
+    </string-array>
+</resources>
