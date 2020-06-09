@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container,new HomeFragment()).commit();
         bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
-        openFragment(HomeFragment.newInstance("", ""));
     }
 
     @Override
@@ -50,28 +50,26 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    switch (item.getItemId()) {
+
+                    Fragment fragment=null;
+                    switch (item.getItemId()){
                         case R.id.navigation_home:
-                            openFragment(HomeFragment.newInstance("", ""));
-                            return true;
+                            fragment=new HomeFragment();
+                            break;
                         case R.id.navigation_cart:
-                            openFragment(CartFragment.newInstance("", ""));
-                            return true;
+                            fragment=new CartFragment();
+                            break;
                         case R.id.navigation_list:
-                            openFragment(ListFragment.newInstance("", ""));
-                            return true;
+                            fragment=new ListFragment();
+                            break;
                         case R.id.navigation_account:
-                            openFragment(AccountFragment.newInstance("", ""));
-                            return true;
+                            fragment=new AccountFragment();
+                            break;
                     }
-                    return false;
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
+
+
+                    return true;
                 }
             };
-
-    public void openFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
 }
