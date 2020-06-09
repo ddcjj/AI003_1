@@ -1,6 +1,7 @@
 package com.example.ai003_1;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -34,9 +35,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
-
         bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         openFragment(HomeFragment.newInstance("", ""));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode!=CDictionary.RESULT_LOGIN && resultCode!=CDictionary.RESULT_LOGIN_VISITER){
+            finish();
+        }
     }
 
     BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
