@@ -9,7 +9,7 @@
     tools:context=".fragments.HomeFragment"
     >
 
-    <androidx.recyclerview.widget.RecyclerView
+    <!--<androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +17,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498" />
+        app:layout_constraintVertical_bias="0.498" />-->
+
+    <TextView
+        android:id="@+id/text_service"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -46,34 +52,31 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_logo1"
+            android:id="@+id/btn_logo_shopee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:layout_weight="1"
-            android:text="test1" />
+            android:text="蝦皮" />
 
         <Button
-            android:id="@+id/btn_logo2"
+            android:id="@+id/btn_logo_ruten"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:layout_weight="1"
-            android:text="test1" />
+            android:text="露天" />
 
         <Button
-            android:id="@+id/btn_logo3"
+            android:id="@+id/btn_logo_yahoo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:layout_weight="1"
-            android:text="test1" />
+            android:text="雅虎" />
 
         <Button
             android:id="@+id/btn_logo4"
@@ -83,6 +86,16 @@
             android:layout_weight="1"
             android:text="test1" />
 
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1"
+            android:text="test1" />
     </LinearLayout>
 
 </LinearLayout>

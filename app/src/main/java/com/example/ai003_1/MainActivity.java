@@ -42,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode!=CDictionary.RESULT_LOGIN && resultCode!=CDictionary.RESULT_LOGIN_VISITER){
-            finish();
-        }
+//        if(resultCode!=CDictionary.RESULT_LOGIN || resultCode!=CDictionary.RESULT_LOGIN_VISITER){
+//            finish();
+//        }
     }
 
     BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
