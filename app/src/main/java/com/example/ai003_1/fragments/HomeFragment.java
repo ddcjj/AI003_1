@@ -140,7 +140,8 @@ public class HomeFragment extends Fragment {
             //Create JSONObject here
             JSONObject jsonParam = new JSONObject();
             jsonParam.put("question", ed_question.getText().toString());
-            //jsonParam.put("question", "哈囉");
+            Log.d("xiang", "json is " + ed_question.getText().toString());
+//            jsonParam.put("question", "哈囉");
             OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
             //wr.write(URLEncoder.encode(jsonParam.toString(), "UTF-8"));
             wr.write(jsonParam.toString());
@@ -159,10 +160,12 @@ public class HomeFragment extends Fragment {
                 sb.append(line + "\n");
 
             }
-
-            answer += sb.toString()+"1";
-//            txtView.setText(text+"\n");
-            Log.d("xiang", "response is " + answer);
+//Log.d("xiang", "sb is " + sb.toString());
+            JSONObject jsonObj = new JSONObject(sb.toString());
+//            Log.d("xiang", "answers is " + jsonObj.getJSONArray("answers"));
+//            Log.d("xiang", "0 is " + jsonObj.getJSONArray("answers").getJSONObject(0));
+//            Log.d("xiang", "answer is " + jsonObj.getJSONArray("answers").getJSONObject(0).getString("answer"));
+            answer = jsonObj.getJSONArray("answers").getJSONObject(0).getString("answer");
 
         } catch (Exception ex) {
 
