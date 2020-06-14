@@ -183,6 +183,8 @@ public class HomeFragment extends Fragment {
             jsonParam.put("question", question);
             Log.d("xiang", "json is " + question);
 //            jsonParam.put("question", "哈囉");
+
+            Log.d("xiang", "json is " + jsonParam);
             OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
             //wr.write(URLEncoder.encode(jsonParam.toString(), "UTF-8"));
             wr.write(jsonParam.toString());
