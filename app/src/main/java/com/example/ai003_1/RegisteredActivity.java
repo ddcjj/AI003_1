@@ -128,23 +128,23 @@ public class RegisteredActivity extends AppCompatActivity {
             Log.d("xiang", "json is " + jsonParam);
 
             // Get the server response
-            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            StringBuilder sb = new StringBuilder();
-            String line = null;
+//            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+//            StringBuilder sb = new StringBuilder();
+//            String line = null;
 
             // Read Server Response
-            while ((line = reader.readLine()) != null) {
-
-                // Append server response in string
-                sb.append(line + "\n");
-
-            }
+//            while ((line = reader.readLine()) != null) {
+//
+//                // Append server response in string
+//                sb.append(line + "\n");
+//
+//            }
             //Log.d("xiang", "sb is " + sb.toString());
-            JSONObject jsonObj = new JSONObject(sb.toString());
+            //JSONObject jsonObj = new JSONObject(sb.toString());
 //            Log.d("xiang", "answers is " + jsonObj.getJSONArray("answers"));
 //            Log.d("xiang", "0 is " + jsonObj.getJSONArray("answers").getJSONObject(0));
 //            Log.d("xiang", "answer is " + jsonObj.getJSONArray("answers").getJSONObject(0).getString("answer"));
-            String response = jsonObj.getJSONArray("answers").getJSONObject(0).getString("answer");
+            //String response = jsonObj.getJSONArray("answers").getJSONObject(0).getString("answer");
             //txtView.setText(response+"\n");
 
         } catch (Exception ex) {

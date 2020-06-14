@@ -56,35 +56,31 @@
 
         <Button
             android:id="@+id/btn_logo_shopee"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
+            android:layout_width="match_parent"
+            android:layout_height="86dp"
             android:layout_weight="1"
-            android:text="蝦皮" />
+            android:background="@drawable/logo_shopee" />
 
         <Button
             android:id="@+id/btn_logo_ruten"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
+            android:layout_width="match_parent"
+            android:layout_height="86dp"
             android:layout_weight="1"
-            android:text="露天" />
+            android:background="@drawable/logo_ruten" />
 
         <Button
             android:id="@+id/btn_logo_yahoo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_weight="1"
-            android:text="雅虎" />
+            android:layout_width="match_parent"
+            android:layout_height="86dp"
+            android:background="@drawable/logo_yahoo"
+            android:layout_weight="1" />
 
         <Button
-            android:id="@+id/btn_logo4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
+            android:id="@+id/btn_logo_store"
+            android:layout_width="match_parent"
+            android:layout_height="86dp"
             android:layout_weight="1"
-            android:text="test1" />
+            android:background="@drawable/logo_store" />
 
     </LinearLayout>
     <LinearLayout
@@ -92,7 +88,7 @@
         android:layout_height="wrap_content">
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
 
             android:layout_weight="1"
             android:text="test1" />

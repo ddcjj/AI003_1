@@ -46,6 +46,7 @@ public class HomeFragment extends Fragment {
     private StringBuilder sb_message = new StringBuilder();
     private Button btn_logo_ruten;
     private Button btn_logo_yahoo;
+    private Button btn_logo_store;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -97,6 +98,7 @@ public class HomeFragment extends Fragment {
         ed_question = view.findViewById(R.id.ed_question);
         btn_send = view.findViewById(R.id.btn_send);
         btn_logo_shopee = view.findViewById(R.id.btn_logo_shopee);
+        btn_logo_shopee.setHeight(btn_logo_shopee.getWidth());
         btn_logo_shopee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,6 +108,7 @@ public class HomeFragment extends Fragment {
             }
         });
         btn_logo_ruten = view.findViewById(R.id.btn_logo_ruten);
+        btn_logo_ruten.setHeight(btn_logo_ruten.getWidth());
         btn_logo_ruten.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,10 +118,21 @@ public class HomeFragment extends Fragment {
             }
         });
         btn_logo_yahoo = view.findViewById(R.id.btn_logo_yahoo);
+        btn_logo_yahoo.setHeight(btn_logo_yahoo.getWidth());
         btn_logo_yahoo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Uri uri=Uri.parse("https://tw.bid.yahoo.com/");
+                Intent i=new Intent(Intent.ACTION_VIEW,uri);
+                startActivity(i);
+            }
+        });
+        btn_logo_store = view.findViewById(R.id.btn_logo_store);
+        btn_logo_store.setHeight(btn_logo_store.getWidth());
+        btn_logo_store.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri=Uri.parse("https://seller.pcstore.com.tw/");
                 Intent i=new Intent(Intent.ACTION_VIEW,uri);
                 startActivity(i);
             }
