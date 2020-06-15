@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,6 +65,7 @@ public class RegisteredActivity extends AppCompatActivity {
                 }
                 RetrieveFeedTask task = new RetrieveFeedTask();
                 task.execute();
+                Toast.makeText(RegisteredActivity.this,"註冊成功",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -100,7 +102,7 @@ public class RegisteredActivity extends AppCompatActivity {
         try {
 
             // Defined URL  where to send data
-            URL url = new URL("http://40.84.151.37/CustomerInput_rec.php");
+            URL url = new URL("http://140.116.180.101/json_test.php");
 
             // Send POST data request
             URLConnection conn = url.openConnection();

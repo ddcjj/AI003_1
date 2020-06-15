@@ -15,9 +15,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ai003_1.AboutActivity;
 import com.example.ai003_1.CDictionary;
 import com.example.ai003_1.LoginActivity;
-import com.example.ai003_1.MainActivity;
 import com.example.ai003_1.R;
 
 import java.util.ArrayList;
@@ -26,13 +26,7 @@ import java.util.List;
 import static android.content.Context.MODE_PRIVATE;
 
 public class AccountFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+
     private RecyclerView rv_account;
     private String[] accounts;
     private List<FAccount> fAccounts;
@@ -56,7 +50,8 @@ public class AccountFragment extends Fragment {
         fAccounts = new ArrayList<>();
         fAccounts.add(new FAccount(accounts[0],R.drawable.iconfinder_account_user));
         fAccounts.add(new FAccount(accounts[1],R.drawable.iconfinder_help));
-        fAccounts.add(new FAccount(accounts[2],R.drawable.iconfinder_login_out));
+        fAccounts.add(new FAccount(accounts[2],R.drawable.iconfinder_about));
+        fAccounts.add(new FAccount(accounts[3],R.drawable.iconfinder_login_out));
 
         //return inflater.inflate(R.layout.fragment_account, container, false);
         return rv_account;
@@ -89,8 +84,14 @@ public class AccountFragment extends Fragment {
                 public void onClick(View view) {
                     switch (fAccount.getName()) {
                         case "帳號設定":
-
+//                            Intent intent = new Intent(getActivity(), AboutActivity.class);
+//                            startActivity(intent);
+                            break;
                         case "幫助中心":
+                            break;
+                        case "關於":
+                            Intent intent = new Intent(getActivity(), AboutActivity.class);
+                            startActivity(intent);
                             break;
                         case "登出":
                                 new AlertDialog.Builder(getActivity())

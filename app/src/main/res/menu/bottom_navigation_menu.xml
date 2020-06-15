@@ -8,16 +8,16 @@
     <item
         android:id="@+id/navigation_cart"
         android:enabled="true"
-        android:icon="@drawable/iconfinder_outlined_shopping_cart_4280487"
+        android:icon="@drawable/shopping_cart"
         android:title="購物車"/>
     <item
         android:id="@+id/navigation_list"
         android:enabled="true"
-        android:icon="@drawable/iconfinder_list"
+        android:icon="@drawable/order"
         android:title="訂單查詢"/>
     <item
         android:id="@+id/navigation_account"
         android:enabled="true"
-        android:icon="@drawable/iconfinder_account_manage"
+        android:icon="@drawable/customer"
         android:title="帳號管理"/>
 </menu>

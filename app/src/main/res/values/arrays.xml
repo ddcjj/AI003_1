@@ -3,6 +3,7 @@
     <string-array name="accounts">
         <item>帳號設定</item>
         <item>幫助中心</item>
+        <item>關於</item>
         <item>登出</item>
     </string-array>
 
