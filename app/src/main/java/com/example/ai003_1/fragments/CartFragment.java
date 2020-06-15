@@ -60,6 +60,7 @@ public class CartFragment extends Fragment implements View.OnClickListener{
         btn_pay.setOnClickListener(btn_pay_click);
         check_total_sum = view.findViewById(R.id.check_total_sum);
         listView = view.findViewById(R.id.listView);
+        listView.setOnItemClickListener();
         // Inflate the layout for this fragment
         return view;
     }
