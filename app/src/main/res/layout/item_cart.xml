@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:descendantFocusability="blocksDescendants">
+    <TextView
+        android:id="@+id/item_product_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_margin="10sp"
+        android:text="商品名稱"
+        android:textColor="#222222"/>
+    <ImageButton
+        android:id="@+id/item_btn_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#0000"
+        android:src="@drawable/add"
+        android:layout_below="@+id/item_product_name"
+        android:layout_marginLeft="10dp" />
+    <TextView
+        android:id="@+id/item_product_num"
+        android:text="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:textColor="#222222"
+        android:layout_margin="0dp"
+        android:layout_toRightOf="@id/item_btn_add"
+        android:layout_below="@id/item_product_name"  />
+    <ImageButton
+        android:id="@+id/item_btn_sub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#0000"
+        android:src="@drawable/sub"
+        android:layout_below="@id/item_product_name"
+        android:layout_toRightOf="@id/item_product_num"
+        />
+    <TextView
+        android:id="@+id/item_product_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_margin="10dp"
+        android:text="0"
+        android:textColor="#222222"
+        android:layout_alignParentRight="true"/>
+    <CheckedTextView
+        android:id="@+id/check_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40sp"
+        android:gravity="center_vertical"
+        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+        android:checked="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+</RelativeLayout>
