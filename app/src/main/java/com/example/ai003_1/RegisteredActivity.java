@@ -38,6 +38,7 @@ public class RegisteredActivity extends AppCompatActivity {
     private Button btn_registered_email;
     private Button btn_registered_confirm;
     private Button btn_registered_cancel;
+    private String response;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,9 @@ public class RegisteredActivity extends AppCompatActivity {
                 }
                 RetrieveFeedTask task = new RetrieveFeedTask();
                 task.execute();
-                Toast.makeText(RegisteredActivity.this,"註冊成功",Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(RegisteredActivity.this,response,Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -102,7 +105,7 @@ public class RegisteredActivity extends AppCompatActivity {
         try {
 
             // Defined URL  where to send data
-            URL url = new URL("http://140.116.180.101/json_test.php");
+            URL url = new URL("http://140.116.180.101/CustomerInput_app_rec.php");
 
             // Send POST data request
             URLConnection conn = url.openConnection();
@@ -115,7 +118,7 @@ public class RegisteredActivity extends AppCompatActivity {
             jsonParam.put("cName",ed_registered_name.getText().toString());
             jsonParam.put("Birthday",ed_registered_birthday.getText().toString());
             jsonParam.put("cEmail",ed_registered_email.getText().toString());
-            jsonParam.put("CheckNumber",ed_registered_checkEmail.getText().toString());
+//            jsonParam.put("CheckNumber",ed_registered_checkEmail.getText().toString());
             jsonParam.put("cPassword",ed_registered_password.getText().toString());
             jsonParam.put("recPassword",ed_registered_checkPassword.getText().toString());
             jsonParam.put("cAddress",ed_registered_address.getText().toString());
@@ -130,24 +133,28 @@ public class RegisteredActivity extends AppCompatActivity {
             Log.d("xiang", "json is " + jsonParam);
 
             // Get the server response
-//            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-//            StringBuilder sb = new StringBuilder();
-//            String line = null;
+            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            Log.d("xiang","reder"+reader);
+            StringBuilder sb = new StringBuilder();
+            String line = null;
 
-            // Read Server Response
-//            while ((line = reader.readLine()) != null) {
-//
-//                // Append server response in string
-//                sb.append(line + "\n");
-//
-//            }
-            //Log.d("xiang", "sb is " + sb.toString());
-            //JSONObject jsonObj = new JSONObject(sb.toString());
-//            Log.d("xiang", "answers is " + jsonObj.getJSONArray("answers"));
+//             Read Server Response
+            while ((line = reader.readLine()) != null) {
+
+                // Append server response in string
+                sb.append(line + "\n");
+
+            }
+            Log.d("xiang", "sb is " + sb.toString());
+            JSONObject jsonObj = new JSONObject(sb.toString());
+//            Log.d("xiang", "answers is " + jsonObj.getJSONArray("posts"));
 //            Log.d("xiang", "0 is " + jsonObj.getJSONArray("answers").getJSONObject(0));
 //            Log.d("xiang", "answer is " + jsonObj.getJSONArray("answers").getJSONObject(0).getString("answer"));
-            //String response = jsonObj.getJSONArray("answers").getJSONObject(0).getString("answer");
+//            response = jsonObj.getJSONArray("answers").getJSONObject(0).getString("posts");
+            response = jsonObj.getJSONArray("posts").toString();
+            Log.d("xiang",response);
             //txtView.setText(response+"\n");
+
 
         } catch (Exception ex) {
 
