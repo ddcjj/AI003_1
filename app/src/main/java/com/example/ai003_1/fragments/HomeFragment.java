@@ -1,17 +1,22 @@
 package com.example.ai003_1.fragments;
 
+import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ai003_1.CDictionary;
 import com.example.ai003_1.R;
 
 import org.json.JSONObject;
@@ -47,6 +53,7 @@ public class HomeFragment extends Fragment {
     private Button btn_logo_ruten;
     private Button btn_logo_yahoo;
     private Button btn_logo_store;
+    private Button btn_mic;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -97,6 +104,8 @@ public class HomeFragment extends Fragment {
         text_service = view.findViewById(R.id.text_service);
         ed_question = view.findViewById(R.id.ed_question);
         btn_send = view.findViewById(R.id.btn_send);
+        btn_mic = view.findViewById(R.id.btn_mic);
+        btn_mic.setOnClickListener(new myRecognizerIntentListener());
         btn_logo_shopee = view.findViewById(R.id.btn_logo_shopee);
         btn_logo_shopee.setHeight(btn_logo_shopee.getWidth());
         btn_logo_shopee.setOnClickListener(new View.OnClickListener() {
@@ -172,9 +181,8 @@ public class HomeFragment extends Fragment {
 //    }
 //    }
 
-
+//聊天機器人
     public void GetText() throws UnsupportedEncodingException {
-
 
         BufferedReader reader = null;
 
@@ -198,7 +206,6 @@ public class HomeFragment extends Fragment {
             Log.d("xiang", "json is " + question);
 //            jsonParam.put("question", "哈囉");
 
-            Log.d("xiang", "json is " + jsonParam);
             OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
             //wr.write(URLEncoder.encode(jsonParam.toString(), "UTF-8"));
             wr.write(jsonParam.toString());
@@ -240,7 +247,7 @@ public class HomeFragment extends Fragment {
             }
         }
     }
-
+//聊天機器人方法
     class RetrieveFeedTask extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -262,5 +269,47 @@ public class HomeFragment extends Fragment {
             return null;
         }
 
+    }
+
+    //語音
+    public class myRecognizerIntentListener implements View.OnClickListener {
+        public void onClick(View v) {
+            try {
+// 用Intent來傳遞語音識別的模式,並且開啟語音模式
+                Intent intent = new Intent(
+                        RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+// 語言模式和自由形式的語音識別
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                        RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+// 提示語言開始
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "請開始語音");
+// 開始語音識別
+                startActivityForResult(intent, CDictionary.VOICE_RECOGNITION_REQUEST_CODE);
+            } catch (ActivityNotFoundException e) {
+                Toast.makeText(getActivity(), "找不到語音裝置",
+                        Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    // 語音結束時的回撥函式
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CDictionary.VOICE_RECOGNITION_REQUEST_CODE
+                && resultCode == CDictionary.RESULT_OK) {
+// 取得語音的字元
+            ArrayList<String> results = data
+                    .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+// 設定檢視的更新
+//            mList.setAdapter(new ArrayAdapter<String>(this,
+//                    android.R.layout.simple_list_item_1, results));
+            String resultsString = "";
+            for (int i = 0; i < results.size(); i++  ) {
+                resultsString  = results.get(i);
+            }
+            ed_question.setText(resultsString);
+//            Toast.makeText(this, resultsString, Toast.LENGTH_LONG).show();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

@@ -9,4 +9,6 @@ public class CDictionary {
     public static final String AUTO_LOGIN = "AUTO_LOGIN";
     public static final String ID = "ID";
     public static final String LOGON = "LOGON";
+    public static final int VOICE_RECOGNITION_REQUEST_CODE = 1;
+    public static final int RESULT_OK = 3;
 }

@@ -36,9 +36,16 @@
 
         <EditText
             android:id="@+id/ed_question"
-            android:layout_width="350sp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="請在此輸入" />
+
+        <Button
+            android:id="@+id/btn_mic"
+            android:background="@drawable/mic32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <Button
             android:id="@+id/btn_send"

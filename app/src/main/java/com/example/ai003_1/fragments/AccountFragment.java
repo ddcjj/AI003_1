@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ai003_1.AboutActivity;
+import com.example.ai003_1.AccountActivity;
 import com.example.ai003_1.CDictionary;
 import com.example.ai003_1.LoginActivity;
 import com.example.ai003_1.R;
@@ -84,14 +85,12 @@ public class AccountFragment extends Fragment {
                 public void onClick(View view) {
                     switch (fAccount.getName()) {
                         case "帳號設定":
-//                            Intent intent = new Intent(getActivity(), AboutActivity.class);
-//                            startActivity(intent);
+                            startActivity(new Intent(getActivity(), AccountActivity.class));
                             break;
                         case "幫助中心":
                             break;
                         case "關於":
-                            Intent intent = new Intent(getActivity(), AboutActivity.class);
-                            startActivity(intent);
+                            startActivity(new Intent(getActivity(), AboutActivity.class));
                             break;
                         case "登出":
                                 new AlertDialog.Builder(getActivity())
