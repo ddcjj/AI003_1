@@ -1,7 +1,6 @@
 package com.example.ai003_1.fragments;
 
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -11,8 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -28,7 +25,6 @@ import com.example.ai003_1.CDictionary;
 import com.example.ai003_1.R;
 
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -45,7 +41,7 @@ public class HomeFragment extends Fragment {
     private EditText ed_question;
     private Button btn_send;
     private RecyclerView rv_home;
-    private List<String> question_list;
+    private List<String> message_list;
     private String answer;
     private String question;
     private TextView text_service;
@@ -54,6 +50,7 @@ public class HomeFragment extends Fragment {
     private Button btn_logo_yahoo;
     private Button btn_logo_store;
     private Button btn_mic;
+    private TextViewAdapter adapter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -68,16 +65,19 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        message_list = new ArrayList<>();
 
-
-        question_list = new ArrayList<>();
+        rv_home.setHasFixedSize(true);
+        rv_home.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        rvSetAdapter();
 
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 question = ed_question.getText().toString();
-//                question_list.add(question);
-                sb_message.append("我:" + question + "\n");
+                message_list.add("我:" + question+"\n");
+//                sb_message.append("我:" + question + "\n");
+                ed_question.setText("");
 
                 RetrieveFeedTask task = new RetrieveFeedTask();
                 task.execute();
@@ -87,10 +87,9 @@ public class HomeFragment extends Fragment {
 ////                question_list.add("1");
 ////                Log.d("xiang",answer);
 //
-//                ed_question.setText("");
 //                rv_home.setHasFixedSize(true);
 //                rv_home.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-//                HomeFragment.TextViewAdapter adapter = new HomeFragment.TextViewAdapter();
+//                adapter = new TextViewAdapter();
 //                rv_home.setAdapter(adapter);
             }
         });
@@ -101,7 +100,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        text_service = view.findViewById(R.id.text_service);
+//        text_service = view.findViewById(R.id.text_service);
         ed_question = view.findViewById(R.id.ed_question);
         btn_send = view.findViewById(R.id.btn_send);
         btn_mic = view.findViewById(R.id.btn_mic);
@@ -146,40 +145,48 @@ public class HomeFragment extends Fragment {
                 startActivity(i);
             }
         });
-//        rv_home = view.findViewById(R.id.rv_home);
+        rv_home = view.findViewById(R.id.rv_home);
+
+
         // Inflate the layout for this fragment
         return view;
     }
 
 
-//    public class TextViewAdapter extends RecyclerView.Adapter<TextViewAdapter.TextViewHolder>{
-//
-//        @NonNull
-//        @Override
-//        public TextViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//            View view = getLayoutInflater().inflate(R.layout.recycler_home_question, parent, false);
-//            return new TextViewAdapter.TextViewHolder(view);
-//        }
-//
-//        @Override
-//        public void onBindViewHolder(@NonNull TextViewHolder holder, int position) {
-//            String[] questions = question_list.toArray(new String[question_list.size()]);
-//            holder.textView.setText(questions[position]);
-//        }
-//
-//        @Override
-//        public int getItemCount() {
-//            return question_list.size();
-//        }
-//
-//        class TextViewHolder extends RecyclerView.ViewHolder {
-//            TextView textView;
-//        public TextViewHolder(@NonNull View itemView) {
-//            super(itemView);
-//            textView = itemView.findViewById(R.id.text_question);
-//        }
-//    }
-//    }
+    public class TextViewAdapter extends RecyclerView.Adapter<TextViewAdapter.TextViewHolder>{
+
+        List<String> message_list;
+
+        public TextViewAdapter(List<String> message_list) {
+            this.message_list = message_list;
+        }
+
+        @NonNull
+        @Override
+        public TextViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = getLayoutInflater().inflate(R.layout.recycler_home_question, parent, false);
+            return new TextViewAdapter.TextViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull TextViewHolder holder, int position) {
+            String[] questions = message_list.toArray(new String[message_list.size()]);
+            holder.textView.setText(questions[position]);
+        }
+
+        @Override
+        public int getItemCount() {
+            return message_list.size();
+        }
+
+        class TextViewHolder extends RecyclerView.ViewHolder {
+            TextView textView;
+        public TextViewHolder(@NonNull View itemView) {
+            super(itemView);
+            textView = itemView.findViewById(R.id.left_name);
+        }
+    }
+    }
 
 //聊天機器人
     public void GetText() throws UnsupportedEncodingException {
@@ -253,13 +260,14 @@ public class HomeFragment extends Fragment {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
 
-        sb_message.append("機器人:" + answer + "\n");
+//        sb_message.append("機器人:" + answer + "\n");
+        message_list.add("機器人:" + answer + "\n");
 
-        text_service.setText(sb_message.toString());
+        rvSetAdapter();
+
+//        text_service.setText(sb_message.toString());
 //                question_list.add("1");
 //                Log.d("xiang",answer);
-
-        ed_question.setText("");
     }
 
     @Override
@@ -281,6 +289,11 @@ public class HomeFragment extends Fragment {
             return null;
         }
 
+    }
+
+    private void rvSetAdapter() {
+        adapter = new TextViewAdapter(message_list);
+        rv_home.setAdapter(adapter);
     }
 
     //語音

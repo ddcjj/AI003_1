@@ -28,84 +28,6 @@
                 android:inputType="textPersonName"/>
 
             <TextView
-                android:text="姓名"
-                android:textSize="25sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <EditText
-                android:id="@+id/ed_registered_name"
-                android:textSize="25sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <!--
-                        <TextView
-                            android:text="性別"
-                            android:textSize="25sp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-
-                        <EditText
-                            android:id="@+id/ed_registered_male"
-                            android:textSize="25sp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-            -->
-            <TextView
-                android:text="生日"
-                android:textSize="25sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <EditText
-                android:id="@+id/ed_registered_birthday"
-                android:hint="1900/01/01"
-                android:textSize="25sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="date"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:text="Email"
-                    android:textSize="25sp"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <Button
-                    android:text="獲取Emal認證碼"
-                    android:id="@+id/btn_registered_email"
-                    android:layout_weight="2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
-
-
-            <EditText
-                android:id="@+id/ed_registered_email"
-                android:textSize="25sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:text="Email認證碼"
-                android:textSize="25sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <EditText
-                android:id="@+id/ed_registered_checkEmail"
-                android:textSize="25sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <TextView
                 android:text="密碼"
                 android:textSize="25sp"
                 android:layout_width="match_parent"
@@ -130,6 +52,86 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"/>
+
+            <TextView
+                android:text="姓名"
+                android:textSize="25sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/ed_registered_name"
+                android:textSize="25sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <!--
+                        <TextView
+                            android:text="性別"
+                            android:textSize="25sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <EditText
+                            android:id="@+id/ed_registered_male"
+                            android:textSize="25sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+            -->
+            <TextView
+            android:text="生日"
+            android:textSize="25sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+            <EditText
+            android:id="@+id/ed_registered_birthday"
+            android:hint="1900/01/01"
+            android:textSize="25sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"/>
+
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+                <TextView
+                android:text="Email"
+                android:textSize="25sp"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+                <Button
+                android:text="獲取Emal認證碼"
+                android:id="@+id/btn_registered_email"
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
+            <EditText
+            android:id="@+id/ed_registered_email"
+            android:textSize="25sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+            <!--
+                        <TextView
+                            android:text="Email認證碼"
+                            android:textSize="25sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <EditText
+                            android:id="@+id/ed_registered_checkEmail"
+                            android:textSize="25sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+            -->
 
             <TextView
                 android:text="地址"
