@@ -105,7 +105,8 @@ public class RegisteredActivity extends AppCompatActivity {
         try {
 
             // Defined URL  where to send data
-            URL url = new URL("http://140.116.180.101/CustomerInput_app_rec.php");
+//            URL url = new URL("http://140.116.180.101/CustomerInput_app_rec.php");
+            URL url = new URL("http://40.84.151.37/CustomerInput_app_rec.php");
 
             // Send POST data request
             URLConnection conn = url.openConnection();

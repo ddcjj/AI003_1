@@ -81,13 +81,13 @@ public class HomeFragment extends Fragment {
 
                 RetrieveFeedTask task = new RetrieveFeedTask();
                 task.execute();
-                sb_message.append("機器人:" + answer + "\n");
-
-                text_service.setText(sb_message.toString());
-//                question_list.add("1");
-//                Log.d("xiang",answer);
-
-                ed_question.setText("");
+//                sb_message.append("機器人:" + answer + "\n");
+//
+//                text_service.setText(sb_message.toString());
+////                question_list.add("1");
+////                Log.d("xiang",answer);
+//
+//                ed_question.setText("");
 //                rv_home.setHasFixedSize(true);
 //                rv_home.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 //                HomeFragment.TextViewAdapter adapter = new HomeFragment.TextViewAdapter();
@@ -249,8 +249,20 @@ public class HomeFragment extends Fragment {
     }
 //聊天機器人方法
     class RetrieveFeedTask extends AsyncTask<Void, Void, Void> {
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
 
-        @Override
+        sb_message.append("機器人:" + answer + "\n");
+
+        text_service.setText(sb_message.toString());
+//                question_list.add("1");
+//                Log.d("xiang",answer);
+
+        ed_question.setText("");
+    }
+
+    @Override
         protected Void doInBackground(Void... voids) {
 
             try {

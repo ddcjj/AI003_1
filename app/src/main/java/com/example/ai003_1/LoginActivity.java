@@ -21,9 +21,11 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static final String TAG = "TAG";
     EditText ed_id;
     EditText ed_password;
     String id;
@@ -32,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btn_registered;
     private Button btn_visitor;
     private CheckBox cb_autoLogin;
+    private String response;
 
 
     @Override
@@ -40,8 +43,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         InitialComponent();
-        Log.i("testMain","123");
-
     }
 
     private void InitialComponent(){
@@ -71,18 +72,103 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-
-
-
     private View.OnClickListener btn_login_click = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
 
-            String id = ed_id.getText().toString();
-            String password = ed_password.getText().toString();
+            id = ed_id.getText().toString();
+            password = ed_password.getText().toString();
 
-            if(id.equals("jack") && password.equals("1234")){
-                String userName = "jack";
+            RetrieveFeedTask task = new RetrieveFeedTask();
+            task.execute();
+        }
+    };
+
+    private View.OnClickListener btn_visitor_click = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent();
+            setResult(CDictionary.RESULT_LOGIN_VISITER,intent);
+            finish();
+        }
+    };
+    private View.OnClickListener btn_registered_click = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(LoginActivity.this,RegisteredActivity.class);
+            startActivity(intent);
+        }
+    };
+    public void GetText() throws UnsupportedEncodingException {
+
+
+        BufferedReader reader = null;
+
+        // Send data
+        try {
+
+            // Defined URL  where to send data
+//            URL url = new URL("http://140.116.180.101/checkUser.php");
+            URL url = new URL("http://40.84.151.37/checkUser.php");
+
+            // Send POST data request
+            URLConnection conn = url.openConnection();
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+
+            //Create JSONObject here
+            JSONObject jsonParam = new JSONObject();
+            jsonParam.put("cAccount", id);
+            jsonParam.put("cPassword", password);
+
+            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+
+            wr.write(jsonParam.toString());
+            wr.flush();
+//            Log.d(TAG, "json is " + jsonParam);
+
+            // Get the server response
+            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+//            Log.d(TAG,"reder"+reader);
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+
+//             Read Server Response
+            while ((line = reader.readLine()) != null) {
+
+                // Append server response in string
+                sb.append(line + "\n");
+
+            }
+//            Log.d(TAG, "sb is " + sb.toString());
+            JSONObject jsonObj = new JSONObject(sb.toString());
+//            Log.d(TAG, "answers is " + jsonObj.getJSONArray("posts"));
+            response = jsonObj.getJSONArray("posts").toString();
+//            Log.d(TAG, response);
+//            Log.d(TAG, "boolean: " + response.contains("成功"));
+        } catch (Exception ex) {
+
+            Log.d(TAG, "exception at last " + ex);
+
+        } finally {
+
+            try {
+
+                reader.close();
+
+            } catch (Exception ex) {
+
+            }
+        }
+    }
+
+    class RetrieveFeedTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if(response.contains("成功")){
+                String userName = id;
 
                 Bundle bundle = new Bundle();
                 bundle.putString("name",userName);
@@ -115,91 +201,6 @@ public class LoginActivity extends AppCompatActivity {
                         .show();
             }
         }
-    };
-
-    private View.OnClickListener btn_visitor_click = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Intent intent = new Intent();
-            setResult(CDictionary.RESULT_LOGIN_VISITER,intent);
-            finish();
-        }
-    };
-    private View.OnClickListener btn_registered_click = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(LoginActivity.this,RegisteredActivity.class);
-            startActivity(intent);
-        }
-    };
-    public void GetText() throws UnsupportedEncodingException {
-
-
-        BufferedReader reader = null;
-
-        // Send data
-        try {
-
-            // Defined URL  where to send data
-            URL url = new URL("http://140.116.180.101/CustomerInput_app_rec.php");
-
-            // Send POST data request
-            URLConnection conn = url.openConnection();
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-
-            //Create JSONObject here
-            JSONObject jsonParam = new JSONObject();
-//            jsonParam.put("cAccount", ed_registered_account.getText().toString());
-
-
-            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-            //wr.write(URLEncoder.encode(jsonParam.toString(), "UTF-8"));
-            wr.write(jsonParam.toString());
-            wr.flush();
-            Log.d("xiang", "json is " + jsonParam);
-
-            // Get the server response
-            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            Log.d("xiang","reder"+reader);
-            StringBuilder sb = new StringBuilder();
-            String line = null;
-
-//             Read Server Response
-            while ((line = reader.readLine()) != null) {
-
-                // Append server response in string
-                sb.append(line + "\n");
-
-            }
-            Log.d("xiang", "sb is " + sb.toString());
-            JSONObject jsonObj = new JSONObject(sb.toString());
-//            Log.d("xiang", "answers is " + jsonObj.getJSONArray("posts"));
-//            Log.d("xiang", "0 is " + jsonObj.getJSONArray("answers").getJSONObject(0));
-//            Log.d("xiang", "answer is " + jsonObj.getJSONArray("answers").getJSONObject(0).getString("answer"));
-//            response = jsonObj.getJSONArray("answers").getJSONObject(0).getString("posts");
-//            response = jsonObj.getJSONArray("posts").toString();
-//            Log.d("xiang",response);
-            //txtView.setText(response+"\n");
-
-
-        } catch (Exception ex) {
-
-            Log.d("xiang", "exception at last " + ex);
-
-        } finally {
-
-            try {
-
-                reader.close();
-
-            } catch (Exception ex) {
-
-            }
-        }
-    }
-
-    class RetrieveFeedTask extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -219,6 +220,5 @@ public class LoginActivity extends AppCompatActivity {
 
             return null;
         }
-
     }
 }
