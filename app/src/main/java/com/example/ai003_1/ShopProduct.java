@@ -14,12 +14,8 @@ public class ShopProduct{
     private int num;
     //商品單價
     private int unitprice;
-    //商品單價(NT)
-    private int unitprice_NT;
     // 該商品總價
     private int price;
-    //商品總價(NT)
-    private int price_NT;
     // 該商品圖片
     private Bitmap imageUrl;
 
