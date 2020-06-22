@@ -365,7 +365,7 @@ public class CartFragment extends Fragment implements View.OnClickListener {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         ShopProduct shopProduct = new ShopProduct();
                         JSONObject json_shopProduct = jsonArray.getJSONObject(i);
-                        //if(json_shopProduct.getString("CCHECK")=="N") {
+                        if(json_shopProduct.getString("MCHECK").equals("Y") && json_shopProduct.getString("CCHECK").equals("N")) {
                             shopProduct.setName(json_shopProduct.getString("PNAME"));
                             shopProduct.setNum(json_shopProduct.getInt("QTY"));
                             shopProduct.setUnitprice(json_shopProduct.getInt("PPRICE"));
@@ -373,11 +373,13 @@ public class CartFragment extends Fragment implements View.OnClickListener {
                             shopProduct.setCID(json_shopProduct.getString("CID"));
                             shopProduct.setOrderID(json_shopProduct.getString("OrderID"));
                             shopProduct.setImageUrl(getImageBitmap(json_shopProduct.getString("IMAGE")));
-                        //}
 
-                        datas.add(shopProduct);
-                        listShow.add(true);
-                        total_sum += shopProduct.getPrice();
+                            datas.add(shopProduct);
+                            listShow.add(true);
+                            total_sum += shopProduct.getPrice();
+                        }
+
+
                     }
 
                 }
@@ -429,7 +431,6 @@ public class CartFragment extends Fragment implements View.OnClickListener {
                             jsonObject.put("QTY", datas.get(i).getNum());
                             jsonObject.put("CCHECK", "Y");
                             total_sum -= datas.get(i).getPrice();
-
 
                             String message = jsonObject.toString();
 
