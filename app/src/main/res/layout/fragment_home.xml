@@ -39,9 +39,9 @@
 
         <Button
             android:id="@+id/btn_mic"
-            android:background="@drawable/mic32"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:background="@drawable/mic"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
 
         <Button
             android:id="@+id/btn_send"
@@ -51,7 +51,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,33 +59,45 @@
 
         <Button
             android:id="@+id/btn_logo_shopee"
-            android:layout_width="match_parent"
+            android:layout_width="86dp"
             android:layout_height="86dp"
-            android:layout_weight="1"
-            android:background="@drawable/logo_shopee" />
+            android:background="@drawable/logo_shopee"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btn_logo_ruten"
-            android:layout_width="match_parent"
+            android:layout_width="86dp"
             android:layout_height="86dp"
-            android:layout_weight="1"
-            android:background="@drawable/logo_ruten" />
+            android:background="@drawable/logo_ruten"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_logo_yahoo"
+            app:layout_constraintHorizontal_bias="0.531"
+            app:layout_constraintStart_toEndOf="@+id/btn_logo_shopee"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btn_logo_yahoo"
-            android:layout_width="match_parent"
+            android:layout_width="86dp"
             android:layout_height="86dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/logo_yahoo"
-            android:layout_weight="1" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_logo_store"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btn_logo_store"
-            android:layout_width="match_parent"
+            android:layout_width="86dp"
             android:layout_height="86dp"
-            android:layout_weight="1"
-            android:background="@drawable/logo_store" />
+            android:background="@drawable/logo_store"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
