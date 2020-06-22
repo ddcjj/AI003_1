@@ -145,10 +145,12 @@ public class OrderFragment extends Fragment {
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject json_order = jsonArray.getJSONObject(i);
-                        OrderProduct orderProduct = new OrderProduct();
-                        orderProduct.setId(json_order.getString("OrderID"));
+                        if(json_order.getString("CCHECK").equals("Y")) {
+                            OrderProduct orderProduct = new OrderProduct();
+                            orderProduct.setId(json_order.getString("OrderID"));
 
-                        datas.add(orderProduct);
+                            datas.add(orderProduct);
+                        }
                     }
 
                 }
