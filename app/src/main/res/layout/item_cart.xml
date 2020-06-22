@@ -12,13 +12,40 @@
         android:layout_margin="10sp"
         android:text="商品名稱"
         android:textColor="#222222"/>
+
+    <TextView
+        android:id="@+id/text_unitprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        android:layout_marginLeft="60sp"
+        android:layout_toRightOf="@+id/item_product_name"
+        android:text="單價:"
+        android:textColor="#222222"
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/item_unit_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        android:layout_toRightOf="@+id/text_unitprice"
+        android:text="商品單價"
+        android:textColor="#222222"
+        android:textSize="20sp" />
+    <ImageView
+        android:layout_width="100sp"
+        android:layout_height="100sp"
+        android:id="@+id/shopImage"
+        android:layout_alignTop="@+id/item_product_name"
+        android:layout_marginTop="30sp"/>
+
     <ImageButton
         android:id="@+id/item_btn_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#0000"
         android:src="@drawable/add"
-        android:layout_below="@+id/item_product_name"
+        android:layout_below="@+id/shopImage"
         android:layout_marginLeft="10dp" />
     <TextView
         android:id="@+id/item_product_num"
@@ -29,14 +56,14 @@
         android:textColor="#222222"
         android:layout_margin="0dp"
         android:layout_toRightOf="@id/item_btn_add"
-        android:layout_below="@id/item_product_name"  />
+        android:layout_below="@id/shopImage"  />
     <ImageButton
         android:id="@+id/item_btn_sub"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#0000"
         android:src="@drawable/sub"
-        android:layout_below="@id/item_product_name"
+        android:layout_below="@id/shopImage"
         android:layout_toRightOf="@id/item_product_num"
         />
     <TextView
@@ -54,8 +81,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40sp"
         android:gravity="center_vertical"
-        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
         android:checked="true"
+        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
 
 </RelativeLayout>

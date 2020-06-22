@@ -5,8 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
+import android.widget.CheckedTextView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ai003_1.fragments.CartFragment;
@@ -68,7 +69,9 @@ public class ShopAdapter extends BaseAdapter {
             holder.item_order_id = v.findViewById(R.id.item_product_name);
             holder.item_product_num = v.findViewById(R.id.item_product_num);
             holder.item_product_price = v.findViewById(R.id.item_product_price);
-            holder.check_all = v.findViewById(R.id.checkAll);
+            holder.item_unit_price = v.findViewById(R.id.item_unit_price);
+            holder.check_select = v.findViewById(R.id.check_select);
+            holder.shopImage = v.findViewById(R.id.shopImage);
 
             holder.item_btn_add = v.findViewById(R.id.item_btn_add);
             holder.item_btn_add.setOnClickListener(onAddNum);
@@ -81,12 +84,9 @@ public class ShopAdapter extends BaseAdapter {
         holder.item_order_id.setText(shopProducts.get(i).getName());
         holder.item_product_num.setText(shopProducts.get(i).getNum()+"");
         holder.item_product_price.setText(shopProducts.get(i).getPrice() + "");
-/*
-        holder.check_all.setTag(i);
-        holder.check_all.setChecked(mCheckStates.get(i, false));
-        holder.check_all.setOnCheckedChangeListener(this);
+        holder.item_unit_price.setText(shopProducts.get(i).getUnitprice() + "");
+        holder.shopImage.setImageBitmap(shopProducts.get(i).getImageUrl());
 
- */
         holder.item_btn_add.setTag(i);
         holder.item_btn_sub.setTag(i);
 
@@ -99,7 +99,9 @@ public class ShopAdapter extends BaseAdapter {
         private TextView item_order_id;
         private TextView item_product_num;
         private TextView item_product_price;
-        private CheckBox check_all;
+        private TextView item_unit_price;
+        private ImageView shopImage;
+        private CheckedTextView check_select;
         private ImageButton item_btn_add;
         private ImageButton item_btn_sub;
     }

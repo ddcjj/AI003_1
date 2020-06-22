@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -55,12 +56,17 @@ public class OrderListAdapter extends BaseAdapter {
             holder.item_order_id = v.findViewById(R.id.item_product_name);
             holder.item_product_num = v.findViewById(R.id.item_product_num);
             holder.item_product_price = v.findViewById(R.id.item_product_price);
+            holder.item_unit_price = v.findViewById(R.id.item_unit_price);
+            holder.shopImage = v.findViewById(R.id.shopImage);
 
         }
 
         holder.item_order_id.setText(orderListProduct.get(i).getName());
         holder.item_product_num.setText(orderListProduct.get(i).getNum()+"");
         holder.item_product_price.setText(orderListProduct.get(i).getPrice() + "");
+        holder.item_unit_price.setText(orderListProduct.get(i).getUnitprice() + "");
+        holder.shopImage.setImageBitmap(orderListProduct.get(i).getImageUrl());
+
 
         v.setTag(holder);
         return v;
@@ -71,6 +77,8 @@ public class OrderListAdapter extends BaseAdapter {
         private TextView item_order_id;
         private TextView item_product_num;
         private TextView item_product_price;
+        private TextView item_unit_price;
+        private ImageView shopImage;
     }
 
 }
