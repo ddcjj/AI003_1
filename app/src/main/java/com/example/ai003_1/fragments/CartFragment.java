@@ -114,27 +114,74 @@ public class CartFragment extends Fragment implements View.OnClickListener {
         @Override
         public void onClick(View v) {
 
-            int count = listView.getCount();
-            int total_sub = 0;
-            if (count == 0) {
-
-            } else {
-                for (int item = count - 1; item >= 0; item--) {
-                    if (listShow.get(item)) {
-                        total_sub += datas.get(item).getPrice();
-                        datas.remove(item);
-                        listShow.remove(item);
-                    }
-                }
-                total_sum -= total_sub;
-                check_total_sum.setText(Integer.toString(total_sum));
-                check_total_sum_RM.setText(Integer.toString((int) Math.ceil(total_sum/4.05)));
-                adapter.notifyDataSetChanged();
-            }
+            dialog_delete();
 
 
         }
     };
+    private void dialog_delete() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext()); //創建訊息方塊
+
+        builder.setMessage("確定要刪除？");
+
+        builder.setTitle("刪除");
+
+        builder.setPositiveButton("確認", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss(); //dismiss為關閉dialog,Activity還會保留dialog的狀態
+                Thread thread_delete = new Thread(mutiThread_delete);
+                thread_delete.start();
+                try {
+                    thread_delete.join();
+                }
+                catch (Exception e){
+                    System.out.println(e);
+                }
+                check_total_sum.setText(Integer.toString(total_sum));
+                check_total_sum_RM.setText(Integer.toString((int) Math.ceil(total_sum/4.05)));
+                adapter.notifyDataSetChanged();
+
+                /*
+                int count = listView.getCount();
+                int total_sub = 0;
+                if (count == 0) {
+
+                } else {
+                    for (int item = count - 1; item >= 0; item--) {
+                        if (listShow.get(item)) {
+                            total_sub += datas.get(item).getPrice();
+                            datas.remove(item);
+                            listShow.remove(item);
+                        }
+                    }
+                    total_sum -= total_sub;
+                    check_total_sum.setText(Integer.toString(total_sum));
+                    check_total_sum_RM.setText(Integer.toString((int) Math.ceil(total_sum/4.05)));
+                    adapter.notifyDataSetChanged();
+                }
+                 */
+            }
+
+        });
+
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+            @Override
+
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+
+            }
+
+        });
+
+        builder.create().show();
+
+    }
 
 
 
@@ -318,14 +365,15 @@ public class CartFragment extends Fragment implements View.OnClickListener {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         ShopProduct shopProduct = new ShopProduct();
                         JSONObject json_shopProduct = jsonArray.getJSONObject(i);
-                        shopProduct.setName(json_shopProduct.getString("PNAME"));
-                        shopProduct.setNum(json_shopProduct.getInt("QTY"));
-                        shopProduct.setUnitprice(json_shopProduct.getInt("PPRICE"));
-                        shopProduct.setPrice(json_shopProduct.getInt("PPRICE") * json_shopProduct.getInt("QTY"));
-                        shopProduct.setCID(json_shopProduct.getString("CID"));
-                        shopProduct.setOrderID(json_shopProduct.getString("OrderID"));
-                        shopProduct.setImageUrl(getImageBitmap(json_shopProduct.getString("IMAGE")));
-
+                        //if(json_shopProduct.getString("CCHECK")=="N") {
+                            shopProduct.setName(json_shopProduct.getString("PNAME"));
+                            shopProduct.setNum(json_shopProduct.getInt("QTY"));
+                            shopProduct.setUnitprice(json_shopProduct.getInt("PPRICE"));
+                            shopProduct.setPrice(json_shopProduct.getInt("PPRICE") * json_shopProduct.getInt("QTY"));
+                            shopProduct.setCID(json_shopProduct.getString("CID"));
+                            shopProduct.setOrderID(json_shopProduct.getString("OrderID"));
+                            shopProduct.setImageUrl(getImageBitmap(json_shopProduct.getString("IMAGE")));
+                        //}
 
                         datas.add(shopProduct);
                         listShow.add(true);
@@ -470,6 +518,65 @@ public class CartFragment extends Fragment implements View.OnClickListener {
                 os.flush();
 
                 connection.connect(); // 開始連線
+            } catch(Exception e) {
+                result = e.toString(); // 如果出事，回傳錯誤訊息
+            }
+            System.out.println(result);
+        }
+    };
+
+    private Runnable mutiThread_delete = new Runnable(){
+        public void run()
+        {
+            try {
+                URL url = new URL("http://140.116.180.101/adminpage/dialog_delete.php");
+                // 開始宣告 HTTP 連線需要的物件，這邊通常都是一綑的
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                // 建立 Google 比較挺的 HttpURLConnection 物件
+                connection.setRequestMethod("POST");
+
+                OutputStream os = null;
+
+                // 設定連線方式為 POST
+                connection.setDoOutput(true); // 允許輸出
+                connection.setDoInput(true); // 允許讀入
+                connection.setUseCaches(false); // 不使用快取
+
+                int count = listView.getCount();
+                int total_sub = 0;
+                if (count == 0) {
+
+                } else {
+                    for (int item = count - 1; item >= 0; item--) {
+                        if (listShow.get(item)) {
+                            JSONObject jsonObject = new JSONObject();
+                            jsonObject.put("OrderID",datas.get(item).getOrderID());
+
+                            String message = jsonObject.toString();
+                            connection.setReadTimeout(10000 /*milliseconds*/);
+                            connection.setConnectTimeout(15000 /* milliseconds */);
+                            connection.setFixedLengthStreamingMode(message.getBytes().length);
+
+
+                            //setup send
+                            os = new BufferedOutputStream(connection.getOutputStream());
+                            os.write(message.getBytes());
+                            //clean up
+                            os.flush();
+
+                            //open
+                            connection.connect();
+
+                            total_sub += datas.get(item).getPrice();
+                            datas.remove(item);
+                            listShow.remove(item);
+                        }
+                    }
+                    total_sum -= total_sub;
+
+
+
+                }
             } catch(Exception e) {
                 result = e.toString(); // 如果出事，回傳錯誤訊息
             }
