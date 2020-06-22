@@ -227,6 +227,7 @@ public class RegisteredActivity extends AppCompatActivity {
                 if (response.equals("successful")) {
                     Log.d(TAG, "successful: ");
                     Toast.makeText(RegisteredActivity.this, "註冊成功", Toast.LENGTH_SHORT).show();
+                    finish();
                 }else{
                     Toast.makeText(RegisteredActivity.this, "註冊失敗", Toast.LENGTH_SHORT).show();
                 }
