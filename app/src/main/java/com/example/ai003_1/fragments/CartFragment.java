@@ -455,7 +455,7 @@ public class CartFragment extends Fragment implements View.OnClickListener {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("CID",datas.get(0).getCID());
                 jsonObject.put("eMail","aw123456e@gmail.com");
-                jsonObject.put("TotalCash",check_total_sum.getText());
+                jsonObject.put("TotalCash",Integer.parseInt((String) check_total_sum_RM.getText())+datas.size()*5);
 
                 String message = jsonObject.toString();
 
