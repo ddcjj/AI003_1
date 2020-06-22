@@ -1,5 +1,6 @@
 package com.example.ai003_1;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ai003_1.fragments.HomeFragment;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -40,6 +42,7 @@ public class RegisteredActivity extends AppCompatActivity {
     private Button btn_registered_confirm;
     private Button btn_registered_cancel;
     private String response;
+    private String responseMail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,17 +62,32 @@ public class RegisteredActivity extends AppCompatActivity {
         btn_registered_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if(!ed_registered_password.getText().toString().equals(ed_registered_checkPassword.getText().toString())){
                     new AlertDialog.Builder(RegisteredActivity.this)
                             .setMessage("密碼不相同")
                             .setNegativeButton("確定",null)
                             .show();
+                    Log.d(TAG, "password: ");
                     return;
                 }
+
                 RetrieveFeedTask task = new RetrieveFeedTask("http://40.84.151.37/addUser.php",false);
                 task.execute();
 
-                Toast.makeText(RegisteredActivity.this,response,Toast.LENGTH_SHORT).show();
+//                if(!responseMail.equals(ed_registered_checkEmail.getText().toString())){
+//                    new AlertDialog.Builder(RegisteredActivity.this)
+//                            .setMessage("認證碼有誤")
+//                            .setNegativeButton("確定",null)
+//                            .show();
+//                    Log.d(TAG, "mail: ");
+////                    return;
+//                }
+
+//                if(response.equals("successful")){
+//                    Log.d(TAG, "successful: ");
+//                    Toast.makeText(RegisteredActivity.this,response,Toast.LENGTH_SHORT).show();
+//                }
             }
         });
 
@@ -87,7 +105,7 @@ public class RegisteredActivity extends AppCompatActivity {
         ed_registered_birthday = findViewById(R.id.ed_registered_birthday);
         ed_registered_email = findViewById(R.id.ed_registered_email);
         btn_registered_email = findViewById(R.id.btn_registered_email);
-//        ed_registered_checkEmail = findViewById(R.id.ed_registered_checkEmail);
+        ed_registered_checkEmail = findViewById(R.id.ed_registered_checkEmail);
         ed_registered_password = findViewById(R.id.ed_registered_password);
         ed_registered_checkPassword = findViewById(R.id.ed_registered_checkPassword);
         ed_registered_address = findViewById(R.id.ed_registered_address);
@@ -118,7 +136,7 @@ public class RegisteredActivity extends AppCompatActivity {
             JSONObject jsonParam = new JSONObject();
 
             if(isMail){
-                jsonParam.put("eEmail",ed_registered_email.getText().toString());
+                jsonParam.put("eMail",ed_registered_email.getText().toString());
             }else {
                 jsonParam.put("cAccount", ed_registered_account.getText().toString());
                 jsonParam.put("cPassword", ed_registered_password.getText().toString());
@@ -152,13 +170,29 @@ public class RegisteredActivity extends AppCompatActivity {
 
             }
             Log.d(TAG, "sb is " + sb.toString());
-            JSONObject jsonObj = new JSONObject(sb.toString());
+            JSONArray jsonArray = new JSONArray(sb.toString());
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Log.d(TAG, "GetText: test");
+                JSONObject jsonObjectarray = jsonArray.getJSONObject(i);
+                Log.d(TAG, "GetText: test2");
+                if(isMail){
+//                response = jsonObj.getJSONArray("Captcha").toString();
+                    Log.d(TAG, "30678: "+ jsonObjectarray.getInt("Captcha"));
+                    responseMail = ""+jsonObjectarray.getInt("Captcha");
+                }else {
+//                    response = jsonObj.getJSONArray("posts").toString();
+                    response = jsonObjectarray.getString("status");
+//                    response = jsonObj.getJSONArray("posts").toString();
+                }
+            }
+
+//            JSONObject jsonObj = new JSONObject(sb.toString());
 //            Log.d(TAG, "answers is " + jsonObj.getJSONArray("posts"));
 //            Log.d(TAG, "0 is " + jsonObj.getJSONArray("answers").getJSONObject(0));
 //            Log.d(TAG, "answer is " + jsonObj.getJSONArray("answers").getJSONObject(0).getString("answer"));
 //            response = jsonObj.getJSONArray("answers").getJSONObject(0).getString("posts");
-            response = jsonObj.getJSONArray("posts").toString();
-            Log.d(TAG,response);
+//            response = jsonObj.getJSONArray("posts").toString();
+            Log.d(TAG,"response is " + response);
             //txtView.setText(response+"\n");
         } catch (Exception ex) {
 
@@ -177,6 +211,27 @@ public class RegisteredActivity extends AppCompatActivity {
     }
 
     class RetrieveFeedTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            if(!isMail) {
+                if (!responseMail.equals(ed_registered_checkEmail.getText().toString())) {
+                    new AlertDialog.Builder(RegisteredActivity.this)
+                            .setMessage("認證碼有誤")
+                            .setNegativeButton("確定", null)
+                            .show();
+                    Log.d(TAG, "mail: ");
+                    return;
+                }
+
+                if (response.equals("successful")) {
+                    Log.d(TAG, "successful: ");
+                    Toast.makeText(RegisteredActivity.this, "註冊成功", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(RegisteredActivity.this, "註冊失敗", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
 
         String url;
         boolean isMail;
