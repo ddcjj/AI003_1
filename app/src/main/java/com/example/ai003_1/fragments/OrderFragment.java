@@ -152,10 +152,10 @@ public class OrderFragment extends Fragment {
                             orderProduct.setId(json_order.getString("OrderID"));
 
                             if(json_order.getString("SCHECK").equals("Y")){
-                                orderProduct.setState("出貨中");
+                                orderProduct.setState("已發貨");
                             }
                             else {
-                                orderProduct.setState("準備中");
+                                orderProduct.setState("備貨中");
                             }
 
 
