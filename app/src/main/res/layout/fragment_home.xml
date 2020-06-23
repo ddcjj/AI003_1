@@ -35,7 +35,7 @@
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="請在此輸入" />
+            android:hint="在這兒輸入您的問題試試" />
 
         <Button
             android:id="@+id/btn_mic"

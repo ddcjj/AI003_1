@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.ai003_1.fragments.AccountFragment;
@@ -16,8 +17,9 @@ import com.example.ai003_1.fragments.OrderFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "TAG";
     private boolean logon;
-
+    String userName ;
     BottomNavigationView bottomNavigation;
 
     @Override
@@ -38,12 +40,20 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
     }
 
+    public String getName(){
+        return userName;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 //        if(resultCode!=CDictionary.RESULT_LOGIN || resultCode!=CDictionary.RESULT_LOGIN_VISITER){
 //            finish();
 //        }
+        if(requestCode==CDictionary.REQUEST_LOGIN){
+//            userName = data.getExtras().getString("name");
+            Log.d(TAG, "onActivityResult: " + userName);
+        }
     }
 
     BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
@@ -51,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                     Fragment fragment=null;
+
                     switch (item.getItemId()){
                         case R.id.navigation_home:
                             fragment=new HomeFragment();

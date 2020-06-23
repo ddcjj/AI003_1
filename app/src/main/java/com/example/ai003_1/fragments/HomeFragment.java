@@ -1,6 +1,7 @@
 package com.example.ai003_1.fragments;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ai003_1.CDictionary;
+import com.example.ai003_1.MainActivity;
 import com.example.ai003_1.R;
 
 import org.json.JSONObject;
@@ -37,6 +39,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
+    private static final String TAG = "TAG";
     private Button btn_logo_shopee;
     private EditText ed_question;
     private Button btn_send;
@@ -51,6 +54,7 @@ public class HomeFragment extends Fragment {
     private Button btn_logo_store;
     private Button btn_mic;
     private TextViewAdapter adapter;
+    private String name;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -59,6 +63,12 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        name = ((MainActivity) context).getName();
     }
 
     @Override
@@ -75,7 +85,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 question = ed_question.getText().toString();
-                message_list.add("我:" + question+"\n");
+                message_list.add(name + ":" + question+"\n");
 //                sb_message.append("我:" + question + "\n");
                 ed_question.setText("");
 
@@ -261,7 +271,7 @@ public class HomeFragment extends Fragment {
         super.onPostExecute(aVoid);
 
 //        sb_message.append("機器人:" + answer + "\n");
-        message_list.add("機器人:" + answer + "\n");
+        message_list.add("小瘋:" + answer + "\n");
 
         rvSetAdapter();
 
@@ -320,6 +330,7 @@ public class HomeFragment extends Fragment {
     // 語音結束時的回撥函式
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CDictionary.VOICE_RECOGNITION_REQUEST_CODE
                 && resultCode == CDictionary.RESULT_OK) {
 // 取得語音的字元
@@ -335,6 +346,5 @@ public class HomeFragment extends Fragment {
             ed_question.setText(resultsString);
 //            Toast.makeText(this, resultsString, Toast.LENGTH_LONG).show();
         }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 }
