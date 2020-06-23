@@ -2,6 +2,7 @@ package com.example.ai003_1.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 public class OrderFragment extends Fragment {
 
@@ -91,7 +94,7 @@ public class OrderFragment extends Fragment {
         public void run()
         {
             try {
-                URL url = new URL("http://40.84.151.37/getOrderByUser.php");
+                URL url = new URL("http://40.84.151.37/getShipByUser.php");
                 // 開始宣告 HTTP 連線需要的物件，這邊通常都是一綑的
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 // 建立 Google 比較挺的 HttpURLConnection 物件
@@ -142,12 +145,19 @@ public class OrderFragment extends Fragment {
 
                     datas = new ArrayList<OrderProduct>();
                     JSONArray jsonArray = new JSONArray(result);
-
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject json_order = jsonArray.getJSONObject(i);
                         if(json_order.getString("CCHECK").equals("Y")) {
                             OrderProduct orderProduct = new OrderProduct();
                             orderProduct.setId(json_order.getString("OrderID"));
+
+                            if(json_order.getString("SCHECK").equals("Y")){
+                                orderProduct.setState("出貨中");
+                            }
+                            else {
+                                orderProduct.setState("準備中");
+                            }
+
 
                             datas.add(orderProduct);
                         }
