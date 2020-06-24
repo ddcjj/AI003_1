@@ -231,6 +231,8 @@ public class RegisteredActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(RegisteredActivity.this, "註冊失敗", Toast.LENGTH_SHORT).show();
                 }
+            }else{
+                Toast.makeText(RegisteredActivity.this, "驗證碼已送出", Toast.LENGTH_SHORT).show();
             }
         }
 

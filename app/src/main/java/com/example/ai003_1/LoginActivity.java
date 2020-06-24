@@ -86,7 +86,16 @@ public class LoginActivity extends AppCompatActivity {
     private View.OnClickListener btn_visitor_click = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            startActivityForResult(new Intent(LoginActivity.this,MainActivity.class),CDictionary.REQUEST_LOGIN_VISITOR);
+
+            userName = "";
+            password = "";
+
+            Bundle bundle = new Bundle();
+            bundle.putString(CDictionary.USER_NAME, userName);
+            bundle.putString(CDictionary.USER_PASSWORD,password);
+            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
 //            Intent intent = new Intent();
 //            setResult(CDictionary.RESULT_LOGIN_VISITER,intent);
 //            finish();

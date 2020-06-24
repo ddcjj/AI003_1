@@ -59,12 +59,12 @@ public class MainActivity extends AppCompatActivity {
 //        if(resultCode!=CDictionary.RESULT_LOGIN || resultCode!=CDictionary.RESULT_LOGIN_VISITER){
 //            finish();
 //        }
-        userName = data.getExtras().getString(CDictionary.USER_NAME);
-        Log.d(TAG, "main userName: " + userName);
-        if(requestCode==CDictionary.REQUEST_LOGIN){
-            userName = data.getExtras().getString(CDictionary.USER_NAME);
-            Log.d(TAG, "main userName: " + userName);
-        }
+//        userName = data.getExtras().getString(CDictionary.USER_NAME);
+//        Log.d(TAG, "main userName: " + userName);
+//        if(requestCode==CDictionary.REQUEST_LOGIN){
+//            userName = data.getExtras().getString(CDictionary.USER_NAME);
+//            Log.d(TAG, "main userName: " + userName);
+//        }
     }
 
     BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
