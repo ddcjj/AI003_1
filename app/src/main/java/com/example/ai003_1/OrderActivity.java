@@ -150,7 +150,7 @@ public class OrderActivity extends Activity {
             } catch(Exception e) {
                 result = e.toString(); // 如果出事，回傳錯誤訊息
             }
-            System.out.println(result+"this");
+            System.out.println(result);
 
         }
     };
