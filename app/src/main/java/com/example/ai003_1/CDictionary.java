@@ -16,4 +16,5 @@ public class CDictionary {
     public static final int RESULT_OK = -1;
 
     public static final String USER_NAME = "USER_NAME";
+    public static final String USER_PASSWORD = "USER_PASSWORD";
 }

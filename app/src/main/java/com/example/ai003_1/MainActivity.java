@@ -19,7 +19,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "TAG";
     private boolean logon;
-    String userName ;
+    private String userName ;
+    private String password;
     BottomNavigationView bottomNavigation;
 
     @Override
@@ -29,7 +30,10 @@ public class MainActivity extends AppCompatActivity {
 
         logon = getSharedPreferences(CDictionary.LOGIN,MODE_PRIVATE)
                 .getBoolean(CDictionary.LOGON,false);
+
         userName = getIntent().getExtras().getString(CDictionary.USER_NAME);
+        password = getIntent().getExtras().getString(CDictionary.USER_PASSWORD);
+
         Log.d(TAG, "main get intent user name: " + userName);
 //        if(!logon) {
 //            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
@@ -43,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
 
     public String getName(){
         return userName;
+    }
+
+    public  String getPassword(){
+        return  password;
     }
 
     @Override

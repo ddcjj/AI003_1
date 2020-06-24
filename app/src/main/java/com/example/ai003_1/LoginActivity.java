@@ -171,6 +171,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Bundle bundle = new Bundle();
                 bundle.putString(CDictionary.USER_NAME, userName);
+                bundle.putString(CDictionary.USER_PASSWORD,password);
                 Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                 intent.putExtras(bundle);
 //                intent.putExtra("name",userName);
