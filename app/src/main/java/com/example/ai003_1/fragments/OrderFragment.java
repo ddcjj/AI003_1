@@ -1,5 +1,6 @@
 package com.example.ai003_1.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.ai003_1.CDictionary;
+import com.example.ai003_1.MainActivity;
 import com.example.ai003_1.OrderActivity;
 import com.example.ai003_1.OrderAdapter;
 import com.example.ai003_1.OrderProduct;
@@ -44,14 +47,24 @@ public class OrderFragment extends Fragment {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Bundle bundle = new Bundle();
             bundle.putInt("Order_ID",Integer.parseInt(datas.get(position).getId()));
+            bundle.putString(CDictionary.USER_NAME,userName);
+            bundle.putString(CDictionary.USER_PASSWORD,password);
             Intent intent = new Intent(getContext(), OrderActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);
         }
     };
+    private String userName;
+    private String password;
 
     public OrderFragment() {
         // Required empty public constructor
+    }
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        userName = ((MainActivity) context).getName();
+        password = ((MainActivity) context).getPassword();
     }
 
     @Override
@@ -107,8 +120,8 @@ public class OrderFragment extends Fragment {
                 OutputStream os = null;
 
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("cAccount","0001");
-                jsonObject.put("cPassword","1234");
+                jsonObject.put("cAccount",userName);
+                jsonObject.put("cPassword",password);
 
                 String message = jsonObject.toString();
 

@@ -37,6 +37,8 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
+
 public class HomeFragment extends Fragment {
 
     private static final String TAG = "TAG";

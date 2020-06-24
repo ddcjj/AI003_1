@@ -1,11 +1,13 @@
 package com.example.ai003_1;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.json.JSONArray;
@@ -30,6 +32,9 @@ public class OrderActivity extends Activity {
     private ListView orderView;
     private String result; // 儲存資料用的字串
     private int orderId;
+    private String userName;
+    private String password;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +42,9 @@ public class OrderActivity extends Activity {
 
         Bundle bundle = getIntent().getExtras();
         orderId = bundle.getInt("Order_ID");
+        userName = bundle.getString(CDictionary.USER_NAME);
+        password = bundle.getString(CDictionary.USER_PASSWORD);
+
 
         Thread thread = new Thread(mutiThread);
         thread.start(); // 開始執行
@@ -89,8 +97,8 @@ public class OrderActivity extends Activity {
                 connection.setUseCaches(false); // 不使用快取
 
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("cAccount","0001");
-                jsonObject.put("cPassword","1234");
+                jsonObject.put("cAccount",userName);
+                jsonObject.put("cPassword",password);
 
                 String message = jsonObject.toString();
 
