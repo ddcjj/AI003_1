@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
     private Button btn_logo_store;
     private Button btn_mic;
     private TextViewAdapter adapter;
-    private String name;
+    private String userName;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -68,13 +68,13 @@ public class HomeFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        name = ((MainActivity) context).getName();
+        userName = ((MainActivity) context).getName();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        Log.d(TAG, "homeFragment user name: " + userName);
         message_list = new ArrayList<>();
 
         rv_home.setHasFixedSize(true);
@@ -85,7 +85,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 question = ed_question.getText().toString();
-                message_list.add(name + ":" + question+"\n");
+                message_list.add(userName + ":" + question+"\n");
 //                sb_message.append("我:" + question + "\n");
                 ed_question.setText("");
 

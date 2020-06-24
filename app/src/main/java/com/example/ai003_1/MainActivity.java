@@ -29,11 +29,12 @@ public class MainActivity extends AppCompatActivity {
 
         logon = getSharedPreferences(CDictionary.LOGIN,MODE_PRIVATE)
                 .getBoolean(CDictionary.LOGON,false);
-
-        if(!logon) {
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivityForResult(intent, CDictionary.REQUEST_LOGIN);
-        }
+        userName = getIntent().getExtras().getString(CDictionary.USER_NAME);
+        Log.d(TAG, "main get intent user name: " + userName);
+//        if(!logon) {
+//            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+//            startActivityForResult(intent, CDictionary.REQUEST_LOGIN);
+//        }
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
         getSupportFragmentManager().beginTransaction().replace(R.id.container,new HomeFragment()).commit();
@@ -50,9 +51,11 @@ public class MainActivity extends AppCompatActivity {
 //        if(resultCode!=CDictionary.RESULT_LOGIN || resultCode!=CDictionary.RESULT_LOGIN_VISITER){
 //            finish();
 //        }
+        userName = data.getExtras().getString(CDictionary.USER_NAME);
+        Log.d(TAG, "main userName: " + userName);
         if(requestCode==CDictionary.REQUEST_LOGIN){
-//            userName = data.getExtras().getString("name");
-            Log.d(TAG, "onActivityResult: " + userName);
+            userName = data.getExtras().getString(CDictionary.USER_NAME);
+            Log.d(TAG, "main userName: " + userName);
         }
     }
 

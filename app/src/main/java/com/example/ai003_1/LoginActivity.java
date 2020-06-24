@@ -21,16 +21,15 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "TAG";
-    EditText ed_id;
-    EditText ed_password;
-    String id;
-    String password;
-    Button btn_login;
+    private EditText ed_id;
+    private EditText ed_password;
+    private String userName;
+    private String password;
+    private Button btn_login;
     private Button btn_registered;
     private Button btn_visitor;
     private CheckBox cb_autoLogin;
@@ -47,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void InitialComponent(){
         ed_id = findViewById(R.id.ed_id);
-        id = ed_id.getText().toString();
+        userName = ed_id.getText().toString();
         ed_password = findViewById(R.id.ed_password);
         password = ed_password.getText().toString();
 
@@ -76,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
-            id = ed_id.getText().toString();
+            userName = ed_id.getText().toString();
             password = ed_password.getText().toString();
 
             RetrieveFeedTask task = new RetrieveFeedTask();
@@ -87,9 +86,10 @@ public class LoginActivity extends AppCompatActivity {
     private View.OnClickListener btn_visitor_click = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent();
-            setResult(CDictionary.RESULT_LOGIN_VISITER,intent);
-            finish();
+            startActivityForResult(new Intent(LoginActivity.this,MainActivity.class),CDictionary.REQUEST_LOGIN_VISITOR);
+//            Intent intent = new Intent();
+//            setResult(CDictionary.RESULT_LOGIN_VISITER,intent);
+//            finish();
         }
     };
     private View.OnClickListener btn_registered_click = new View.OnClickListener() {
@@ -118,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
 
             //Create JSONObject here
             JSONObject jsonParam = new JSONObject();
-            jsonParam.put("cAccount", id);
+            jsonParam.put("cAccount", userName);
             jsonParam.put("cPassword", password);
 
             OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
@@ -168,11 +168,10 @@ public class LoginActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
 
             if(response.contains("成功")){
-                String userName = id;
 
                 Bundle bundle = new Bundle();
-                bundle.putString("name",userName);
-                Intent intent = new Intent();
+                bundle.putString(CDictionary.USER_NAME, userName);
+                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                 intent.putExtras(bundle);
 //                intent.putExtra("name",userName);
 
@@ -187,12 +186,14 @@ public class LoginActivity extends AppCompatActivity {
 
                     getSharedPreferences(CDictionary.LOGIN,MODE_PRIVATE)
                             .edit()
-                            .putString(CDictionary.ID,id)
+                            .putString(CDictionary.ID, userName)
                             .apply();
                 }
-
-                setResult(CDictionary.RESULT_LOGIN,intent);
-                finish();
+                Log.d(TAG, "Login name: " + userName);
+                startActivity(intent);
+//                startActivityForResult(intent,CDictionary.REQUEST_LOGIN);
+//                setResult(CDictionary.RESULT_LOGIN,intent);
+//                finish();
             }else{
                 new AlertDialog.Builder(LoginActivity.this)
                         .setTitle("登入失敗")
