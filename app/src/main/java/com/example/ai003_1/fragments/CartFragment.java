@@ -1,7 +1,9 @@
 package com.example.ai003_1.fragments;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.ai003_1.MainActivity;
 import com.example.ai003_1.R;
 import com.example.ai003_1.ShopAdapter;
 import com.example.ai003_1.ShopProduct;
@@ -51,7 +54,8 @@ public class CartFragment extends Fragment implements View.OnClickListener {
     private Button btn_delete;
     private Button btn_pay;
     private String result; // 儲存資料用的字串
-    private String result_member;
+    private String userName;
+    private String password;
     int total_sum = 0;
     private final View.OnClickListener btn_pay_click = new View.OnClickListener() {
         @Override
@@ -192,15 +196,18 @@ public class CartFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
-
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        userName = ((MainActivity) context).getName();
+        password = ((MainActivity) context).getPassword();
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_cart, container, false);
-        final View v = inflater.inflate(R.layout.item_cart, container, false);
         btn_delete = view.findViewById(R.id.delete);
         btn_delete.setOnClickListener(btn_delete_click);
         btn_pay = view.findViewById(R.id.pay);
@@ -230,6 +237,9 @@ public class CartFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+
         Thread thread = new Thread(mutiThread);
         thread.start(); // 開始執行
         try {
@@ -317,8 +327,8 @@ public class CartFragment extends Fragment implements View.OnClickListener {
                 connection.setUseCaches(false); // 不使用快取
 
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("cAccount","0001");
-                jsonObject.put("cPassword","1234");
+                jsonObject.put("cAccount",userName);
+                jsonObject.put("cPassword",password);
 
                 String message = jsonObject.toString();
 
