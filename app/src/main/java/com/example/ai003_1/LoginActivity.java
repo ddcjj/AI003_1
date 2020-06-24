@@ -97,9 +97,6 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);
-//            Intent intent = new Intent();
-//            setResult(CDictionary.RESULT_LOGIN_VISITER,intent);
-//            finish();
         }
     };
     private View.OnClickListener btn_registered_click = new View.OnClickListener() {
